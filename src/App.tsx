@@ -1,5 +1,8 @@
-import axios from "axios"
-import { useState } from "react"
+import { useState } from 'react'
+import axios from 'axios'
+
+const API = process.env.VITE_URL_API!
+axios.defaults.withCredentials = true
 
 function App() {
   const [form, setForm] = useState({ document: '', email: '' })
@@ -16,7 +19,7 @@ function App() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    axios.post('http://172.20.1.110:4040/api/v1/auth/forgot-password', { document: form.document, email: form.email })
+    axios.post(`${API}/forgot-password`, { document: form.document, email: form.email })
       .then(res => {
         if (res.status === 200) {
           setMessage(res.data.message || 'Solicitud Generada Con Éxito')
@@ -46,7 +49,7 @@ function App() {
   const handleSubmit2 = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    axios.post('http://172.20.1.110:4040/api/v1/auth/reset-password', { token: form2.token, password: form2.password, confirmPassword: form2.confirmPassword })
+    axios.post(`${API}/reset-password`, { token: form2.token, password: form2.password, confirmPassword: form2.confirmPassword })
       .then(res => {
         if (res.status === 200) {
           setMessage(res.data.message || 'Contraseña Cambiada Con Éxito')
@@ -86,15 +89,15 @@ function App() {
             Enviar
           </button>
 
-          <p className="text-xs text-center pt-4">Este proceso generará un token con 10 min de validez, para realizar el proceso de recuperación, Token será suministrado por el director de tecnología.</p>
+          <p className='text-xs text-center pt-4'>Este proceso generará un token con 10 min de validez, para realizar el proceso de recuperación, Token será suministrado por el director de tecnología.</p>
 
         </form>
 
-        <button className="mt-2 underline hover:text-blue-500" onClick={() => setChangeForm(true)}>
+        <button className='mt-2 underline hover:text-blue-500' onClick={() => setChangeForm(true)}>
           Ya cuento con un token
         </button>
 
-        <div className="absolute bottom-12">
+        <div className='absolute bottom-12'>
           {message && <p className='text-green-500 font-semibold text-xl'>{message}</p>}
           {error && <p className='text-red-500 font-semibold text-xl'>{error}</p>}
         </div>
@@ -121,11 +124,11 @@ function App() {
           </button>
         </form>
 
-        <button className="mt-2 underline hover:text-blue-500" onClick={() => setChangeForm(false)}>
+        <button className='mt-2 underline hover:text-blue-500' onClick={() => setChangeForm(false)}>
           Solicitar Nuevo Token
         </button>
 
-        <div className="absolute bottom-12">
+        <div className='absolute bottom-12'>
           {message && <p className='text-green-500 font-semibold text-xl'>{message}</p>}
           {error && <p className='text-red-500 font-semibold text-xl'>{error}</p>}
         </div>
