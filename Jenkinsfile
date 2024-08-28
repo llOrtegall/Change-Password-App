@@ -5,21 +5,8 @@ pipeline {
     nodejs 'node-v22'
   }
 
-  environment {
-    ENV = credentials('ENV_URL_API_PASS')
-  }
-    
-
   stages {
-    stage('Copy .env files') {
-      steps {
-        script {
-          def env = readFile(ENV)
-          writeFile file: '.env', text: env
-        }
-      }
-    }
-
+    
     stage('Install Dependencies && Build') {
       steps {
         sh 'yarn'
