@@ -16,7 +16,7 @@ function App() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    axios.post('http://api_login_v1:80/api/v1/auth/forgot-password', { document: form.document, email: form.email })
+    axios.post('https://api_login_v1:80/api/v1/auth/forgot-password', { document: form.document, email: form.email })
       .then(res => {
         if (res.status === 200) {
           setMessage(res.data.message || 'Solicitud Generada Con Éxito')
@@ -46,7 +46,7 @@ function App() {
   const handleSubmit2 = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    axios.post('http://api_login_v1:80/api/v1/auth/reset-password', { token: form2.token, password: form2.password, confirmPassword: form2.confirmPassword })
+    axios.post('https://api_login_v1:80/api/v1/auth/reset-password', { token: form2.token, password: form2.password, confirmPassword: form2.confirmPassword })
       .then(res => {
         if (res.status === 200) {
           setMessage(res.data.message || 'Contraseña Cambiada Con Éxito')
