@@ -20,6 +20,13 @@ pipeline {
       }
     }
 
+    stage('Install Dependencies && Build') {
+      steps {
+        sh 'yarn'
+        sh 'yarn build'
+      }
+    }
+
     stage('Docker Down'){
       steps {
         sh 'docker compose down'
