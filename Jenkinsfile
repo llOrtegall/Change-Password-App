@@ -1,19 +1,7 @@
 pipeline{
   agent any
 
-  environment{
-    ENVIROMENT = credentials('API_LOGIN_SSR_APP')
-  }
-
   stages{
-    stage('Copy .env files') {
-      steps {
-        script {
-          def env = readFile(ENVIROMENT)
-          writeFile file: './.env', text: env
-        }
-      }
-    }
     stage('Stop Containers and remove Image'){
       steps{
         script{

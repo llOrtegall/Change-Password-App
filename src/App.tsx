@@ -1,9 +1,6 @@
 import { useState } from 'react'
 import axios from 'axios'
 
-const API = process.env.VITE_URL_API!
-axios.defaults.withCredentials = true
-
 function App() {
   const [form, setForm] = useState({ document: '', email: '' })
   const [message, setMessage] = useState('')
@@ -19,7 +16,7 @@ function App() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    axios.post(`${API}/forgot-password`, { document: form.document, email: form.email })
+    axios.post('http://api_login_v1:80/api/v1/auth/forgot-password', { document: form.document, email: form.email })
       .then(res => {
         if (res.status === 200) {
           setMessage(res.data.message || 'Solicitud Generada Con Éxito')
@@ -49,7 +46,7 @@ function App() {
   const handleSubmit2 = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    axios.post(`${API}/reset-password`, { token: form2.token, password: form2.password, confirmPassword: form2.confirmPassword })
+    axios.post('http://api_login_v1:80/api/v1/auth/reset-password', { token: form2.token, password: form2.password, confirmPassword: form2.confirmPassword })
       .then(res => {
         if (res.status === 200) {
           setMessage(res.data.message || 'Contraseña Cambiada Con Éxito')
